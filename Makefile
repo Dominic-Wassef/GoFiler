@@ -5,7 +5,7 @@ GOCLEAN=$(GOCMD) clean
 GOGET=$(GOCMD) get
 GOFILES= ./src/go/*.go
 CPPFILES= ./src/cpp/*.cpp
-BINARY_NAME=gofiler
+BINARY_NAME=GoFiler
 
 .PHONY: all go cpp clean go-build go-clean cpp-build cpp-clean
 

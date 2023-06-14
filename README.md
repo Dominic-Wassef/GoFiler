@@ -16,18 +16,18 @@ GoFiler is a file management system built with Go and C++. This utility allows y
 To install the GoFiler system, clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/Dominic-Wassef/gofiler.git
+git clone https://github.com/Dominic-Wassef/GoFiler.git
 ```
 
 ## Usage
 For the C++ version:
 ```bash
-./gofiler_cpp [path]
+./GoFiler_cpp [path]
 ```
 
 For the Go version:
 ```bash
-./gofiler [option] [arguments]
+./GoFiler [option] [arguments]
 ```
 
 ## Go Codebase
@@ -55,61 +55,61 @@ The Go codebase provides a comprehensive set of file management functionalities.
 The exact list of commands depends on the functions implemented in the respective files. For a basic example:
 
 - Create a new file: `-create="filename"` <br />
-For example: `./gofiler -create="myfile.txt"` 
+For example: `./GoFiler -create="myfile.txt"`
 
 - Read a file: `-read="filename"` <br />
-For example: `./gofiler -read="myfile.txt"`
+For example: `./GoFiler -read="myfile.txt"`
 
 - Write to a file: `-write="filename" -data="data to write"` <br />
-For example: `./gofiler -write="myfile.txt" -data="Hello, world!"` 
+For example: `./GoFiler -write="myfile.txt" -data="Hello, world!"`
 
 - Append to a file: `-append="filename" -data="data to append"` <br />
-For example: `./gofiler -append="myfile.txt" -data="This is more data"` 
+For example: `./GoFiler -append="myfile.txt" -data="This is more data"`
 
 - Delete a file: `-delete="filename"` <br />
-For example: `./gofiler -delete="myfile.txt"` 
+For example: `./GoFiler -delete="myfile.txt"`
 
 - Rename a file: `-rename="oldname,newname"` <br />
-For example: `./gofiler -rename="oldfile.txt,newfile.txt"` 
+For example: `./GoFiler -rename="oldfile.txt,newfile.txt"`
 
 - Move a file: `-move="src,dest"` <br />
-For example: `./gofiler -move="path/to/old/location.txt,path/to/new/location.txt"` 
+For example: `./GoFiler -move="path/to/old/location.txt,path/to/new/location.txt"`
 
 - Backup a file: `-backup="filename"` <br />
-For example: `./gofiler -backup="myfile.txt"` 
+For example: `./GoFiler -backup="myfile.txt"`
 
 - Restore a file from backup: `-restore="filename"` <br />
-For example: `./gofiler -restore="myfile.txt"` 
+For example: `./GoFiler -restore="myfile.txt"`
 
 - List backups for a file: `-listBackups="filename"` <br />
-For example: `./gofiler -listBackups="myfile.txt"` 
+For example: `./GoFiler -listBackups="myfile.txt"`
 
 - Check file integrity: `-checkintegrity="filename,backupfilename"` <br />
-For example: `./gofiler -checkintegrity="myfile.txt,backupfile.txt"` 
+For example: `./GoFiler -checkintegrity="myfile.txt,backupfile.txt"`
 
 - Save a file: `-save="filename"` <br />
-For example: `./gofiler -save="myfile.txt"` 
+For example: `./GoFiler -save="myfile.txt"`
 
 - Load a specific version of a file: `-loadVersion="filename,version"` <br />
-For example: `./gofiler -loadVersion="myfile.txt,2"` 
+For example: `./GoFiler -loadVersion="myfile.txt,2"`
 
 - Print changes of a file: `-printChanges="filename"` <br />
-For example: `./gofiler -printChanges="myfile.txt"` 
+For example: `./GoFiler -printChanges="myfile.txt"`
 
 - Specify a user: `-user="username,role"` <br />
-For example: `./gofiler -user="bob,admin"`
+For example: `./GoFiler -user="bob,admin"`
 
 - Assign a role to a user for a file: `-assignRole="filename" -user="username,role"` <br />
-For example: `./gofiler -assignRole="myfile.txt" -user="bob,admin"` 
+For example: `./GoFiler -assignRole="myfile.txt" -user="bob,admin"`
 
 - Edit a file with user role: `-edit="filename" -data="data to append" -user="username,role"` <br />
-For example: `./gofiler -edit="myfile.txt" -data="New data" -user="bob,admin"` 
+For example: `./GoFiler -edit="myfile.txt" -data="New data" -user="bob,admin"`
 
 - Compress and encrypt a file: `-compressEncrypt="filename"` <br />
-For example: `./gofiler -compressEncrypt="myfile.txt"` 
+For example: `./GoFiler -compressEncrypt="myfile.txt"`
 
 - Decompress and decrypt a file: `-decompressDecrypt="filename"` <br />
-For example: `./gofiler -decompressDecrypt="myfile.txt"` <br />
+For example: `./GoFiler -decompressDecrypt="myfile.txt"` <br />
 
 Remember that these flags should all be preceded by a hyphen (-) and the arguments should be in quotes. Multiple flags can be used at the same time, but some combinations may not make sense (like -read and -write used together).
 
