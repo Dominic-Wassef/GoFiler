@@ -55,6 +55,15 @@ public:
         file.close();
     }
 
+    // Copy a file
+    void CopyFile(const std::string& source, const std::string& destination) {
+        try {
+            std::filesystem::copy(source, destination, std::filesystem::copy_options::overwrite_existing);
+        } catch (std::filesystem::filesystem_error& e) {
+            std::cerr << "Error occurred while copying file: " << e.what() << '\n';
+        }
+    }
+
     // Read data from a file
     std::vector<std::string> ReadFromFile(const std::string& filename) {
         std::ifstream file(filename);
@@ -78,41 +87,80 @@ public:
         try {
             return std::filesystem::file_size(filename);
         } catch (std::filesystem::filesystem_error& e) {
-            std::cerr << e.what() << '\n';
+            std::cerr << "Error occurred while getting file size: " << e.what() << '\n';
             return 0;
         }
     }
 };
 
 int main(int argc, char* argv[]) {
-    // Create objects of both classes
-    FileSystemOperations operations;
-    FileOptimizer optimizer;
-
-    if (argc != 2) {
-        std::cerr << "Usage: " << argv[0] << " path\n";
+    if (argc < 2) {
+        std::cerr << "Usage: " << argv[0] << " <operation> <parameters>\n"
+                  << "Available operations:\n"
+                  << "optimize <path>\n"
+                  << "create <filename>\n"
+                  << "delete <filename>\n"
+                  << "rename <oldname> <newname>\n"
+                  << "move <source> <destination>\n"
+                  << "list <path>\n"
+                  << "write <filename> <data>\n"
+                  << "read <filename>\n"
+                  << "getsize <filename>\n"
+                  << "copy <source> <destination>\n";
         return 1;
     }
 
-    std::string path = argv[1];
+    std::string operation = argv[1];
 
-    // Execute functions from FileOptimizer
-    optimizer.CheckFileSystemIntegrity(path);
-    optimizer.ManagePermissions(path);
-    optimizer.CheckDiskSpace(path);
-
-    // Execute functions from FileSystemOperations
-    operations.CreateFile("test.txt");
-    operations.WriteToFile("test.txt", "Hello, world!");
-    auto lines = operations.ReadFromFile("test.txt");
-    for (const auto& line : lines) {
-        std::cout << line << '\n';
+    // Create objects of both classes
+    FileSystemOperations operations;
+    FileOptimizer optimizer;
+    if ((operation == "rename" || operation == "move" || operation == "write" || operation == "copy") && argc < 4) {
+        std::cerr << "Error: Operation " << operation << " requires two arguments.\n";
+        return 1;
     }
-    std::cout << "Size of file: " << operations.GetFileSize("test.txt") << " bytes" << '\n';
-    operations.DeleteFile("test.txt");
-    operations.RenameFile("test1.txt", "test2.txt");
-    operations.MoveFile("test2.txt", "dir/test2.txt");
-    operations.ListFiles("./");
+    if ((operation == "create" || operation == "delete" || operation == "list" || operation == "read" || operation == "getsize") && argc < 3) {
+        std::cerr << "Error: Operation " << operation << " requires one argument.\n";
+        return 1;
+    }
+    if (operation == "optimize") {
+        std::string path = argv[2];
+        optimizer.RunFileOptimizer(path);
+    }
+    else if (operation == "create") {
+        operations.CreateFile(argv[2]);
+    }
+    else if (operation == "delete") {
+        operations.DeleteFile(argv[2]);
+    }
+    else if (operation == "rename") {
+        operations.RenameFile(argv[2], argv[3]);
+    }
+    else if (operation == "move") {
+        operations.MoveFile(argv[2], argv[3]);
+    }
+    else if (operation == "list") {
+        operations.ListFiles(argv[2]);
+    }
+    else if (operation == "write") {
+        operations.WriteToFile(argv[2], argv[3]);
+    }
+    else if (operation == "read") {
+        auto lines = operations.ReadFromFile(argv[2]);
+        for (const auto& line : lines) {
+            std::cout << line << '\n';
+        }
+    }
+    else if (operation == "getsize") {
+        std::cout << "Size of file: " << operations.GetFileSize(argv[2]) << " bytes" << '\n';
+    }
+    else if (operation == "copy") {
+        operations.CopyFile(argv[2], argv[3]);
+    }
+    else {
+        std::cerr << "Invalid operation.\n";
+        return 1;
+    }
 
     return 0;
 }
